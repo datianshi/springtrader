@@ -19,7 +19,7 @@
 
 		
 	<rabbit:connection-factory id="connectionFactory"
-			host="${NANO_RABBIT_HOST:localhost}"
+			host="${NANO_RABBIT_HOST:127.0.0.1}"
 			port="${NANO_RABBIT_PORT:5672}"/>
 	
 	<!--  Enable clustered rabbit brokers by adding "clusteredRabbit" 
