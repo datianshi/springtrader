@@ -12,6 +12,10 @@
 	<logger name="org.springframework">
 		<level value="error" />
 	</logger>
+	
+	<logger name="org.springframework.security">
+		<level value="debug" />
+	</logger>	
 
 	<logger name="org.springframework.nanotrader.data">
 		<level value="error" />

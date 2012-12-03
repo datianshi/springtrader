@@ -30,6 +30,7 @@ allprojects {
 		maven { url  'http://maven.springframework.org/release' }
 		maven { url  'http://repo.springsource.org/libs-milestone' }
 		maven { url  'http://spring-roo-repository.springsource.org/release' }
+		maven { url  'http://maven.springframework.org/milestone'}
 		mavenCentral()
 		maven { url 'http://maven.springframework.org/snapshot' }
 	}
@@ -185,6 +186,7 @@ project('spring-nanotrader-data') {
 		compile files("../lib/sqlfireclient-1.0.3.jar")
                 compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
 		compile "com.h2database:h2:$h2Version"
+		compile "org.cloudfoundry:cloudfoundry-runtime:0.8.1"
 
 	}
 }

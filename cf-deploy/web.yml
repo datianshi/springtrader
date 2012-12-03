@@ -1,0 +1,13 @@
+--- 
+applications: 
+  spring-nanotrader-web-0.0.1.BUILD-SNAPSHOT.war: 
+    url: ${name}.${target-base}
+    name: spring-nanotrader-web
+    framework: 
+      info: 
+        description: Java Web Application
+        exec: 
+        mem: 512M
+      name: java_web
+    instances: 1
+    mem: 256M

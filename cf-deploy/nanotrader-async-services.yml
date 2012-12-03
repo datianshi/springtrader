@@ -1,0 +1,18 @@
+--- 
+applications: 
+  spring-nanotrader-asynch-services-0.0.1.BUILD-SNAPSHOT.war: 
+    framework: 
+      name: spring
+      info: 
+        exec: 
+        description: Java SpringSource Spring Application
+        mem: 512M
+    services: 
+      postgre: 
+        type: postgresql
+      rabbitmq: 
+        type: rabbitmq
+    name: spring-nanotrader-asynch-services
+    url: ${name}.${target-base}
+    mem: 512M
+    instances: 1

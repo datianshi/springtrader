@@ -111,7 +111,8 @@ public class GlobalExceptionHandler {
 		return serviceException;
 	}	
 	
-	private void logError(Exception exception) { 
+	private void logError(Exception exception) {
+		exception.printStackTrace();
 		log.error("GlobalExceptionHandler.handle(" + exception.getClass().getName() + "):" + exception.getMessage());
 	}
 	
