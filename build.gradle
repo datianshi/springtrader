@@ -95,7 +95,9 @@ subprojects { subproject ->
 
 	// See http://www.gradle.org/docs/current/userguide/dependency_management.html#sub:configurations
 	// and http://www.gradle.org/docs/current/dsl/org.gradle.api.artifacts.ConfigurationContainer.html
-	configurations { jacoco //Configuration Group used by Sonar to provide Code Coverage using JaCoCo
+	configurations { 
+	    jacoco //Configuration Group used by Sonar to provide Code Coverage using JaCoCo
+	    provided
 	}
 
 	// dependencies that are common across all java projects
@@ -199,7 +201,7 @@ project('tools') {
 	}
 
 	configurations {
-	 compile
+	 providedCompile
 	}
 
 	jar {
@@ -244,6 +246,11 @@ project('spring-nanotrader-services') {
 	apply plugin: 'war'
 
 	description = 'Spring Nanotrader Services'
+	
+    configurations{
+    	providedCompile
+	}
+		
 	dependencies {
 		compile project(":spring-nanotrader-service-support")
 		compile project(":spring-nanotrader-chaos")
@@ -259,6 +266,7 @@ project('spring-nanotrader-services') {
 		testCompile "org.springframework:spring-test-mvc:1.0.0.BUILD-SNAPSHOT"
 		testCompile "org.hamcrest:hamcrest-all:1.1"
 		compile "org.aspectj:aspectjweaver:$aspectjVersion"
+		runtime files("../lib/cors-filter-1.5.jar")
 	}
         task release(dependsOn: assemble) << {
             copy {
@@ -267,6 +275,11 @@ project('spring-nanotrader-services') {
                 into file("$rootDir/dist") 
             }
         }
+        
+	
+	sourceSets {
+    main { compileClasspath += configurations.providedCompile }
+	}        
 }
 
 project('spring-nanotrader-web') {

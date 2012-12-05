@@ -14,7 +14,7 @@ applications:
         type: postgresql
       rabbitmq: 
         type: rabbitmq
-    url: ${name}-datianshi.${target-base}
+    url: ${name}.${target-base}
     name: spring-nanotrader-services
   spring-nanotrader-asynch-services-0.0.1.BUILD-SNAPSHOT.war: 
     framework: 
@@ -29,11 +29,11 @@ applications:
       rabbitmq: 
         type: rabbitmq
     name: spring-nanotrader-asynch-services
-    url: ${name}-datianshi.${target-base}
+    url: ${name}.${target-base}
     mem: 512M
     instances: 1
   spring-nanotrader-web-0.0.1.BUILD-SNAPSHOT.war: 
-    url: ${name}-datianshi.${target-base}
+    url: ${name}.${target-base}
     name: spring-nanotrader-web
     framework: 
       info: 

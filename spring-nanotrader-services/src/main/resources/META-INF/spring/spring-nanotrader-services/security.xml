@@ -30,7 +30,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
 	<beans:bean id="restPreauthFilter"
 		class="org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter">
-		<beans:property name="principalRequestHeader" value="API_TOKEN" />
+		<beans:property name="principalRequestHeader" value="APITOKEN" />
 		<beans:property name="authenticationManager" ref="authenticationManager" />
 		<beans:property name="exceptionIfHeaderMissing" value="false" />
 	</beans:bean>

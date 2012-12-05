@@ -23,6 +23,10 @@
 		<level value="error" />
 	</logger>
 	
+	<logger name="org.hibernate">
+		<level value="debug" />
+	</logger>	
+	
 	<logger name="org.springsource.nanotrader">
 		<level value="error" />
 	</logger>
@@ -36,12 +40,8 @@
 		<level value="error" />
 	</logger>
 	
-	<logger name="org.hibernate">
-		<level value="error" />
-	</logger>
-	
 	<logger name="org.springframework.nanotrader.asynch">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 
