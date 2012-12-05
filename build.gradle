@@ -30,6 +30,7 @@ allprojects {
 		maven { url  'http://maven.springframework.org/release' }
 		maven { url  'http://repo.springsource.org/libs-milestone' }
 		maven { url  'http://spring-roo-repository.springsource.org/release' }
+		maven { url  'http://maven.springframework.org/milestone'}
 		mavenCentral()
 		maven { url 'http://maven.springframework.org/snapshot' }
 	}
@@ -99,7 +100,9 @@ subprojects { subproject ->
 
 	// See http://www.gradle.org/docs/current/userguide/dependency_management.html#sub:configurations
 	// and http://www.gradle.org/docs/current/dsl/org.gradle.api.artifacts.ConfigurationContainer.html
-	configurations { jacoco //Configuration Group used by Sonar to provide Code Coverage using JaCoCo
+	configurations { 
+	    jacoco //Configuration Group used by Sonar to provide Code Coverage using JaCoCo
+	    provided
 	}
 
 	// dependencies that are common across all java projects
@@ -190,6 +193,7 @@ project('spring-nanotrader-data') {
 		compile files("../lib/sqlfireclient-1.0.3.jar")
                 compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
 		compile "com.h2database:h2:$h2Version"
+		compile "org.cloudfoundry:cloudfoundry-runtime:0.8.1"
 
 	}
 }
@@ -202,7 +206,7 @@ project('tools') {
 	}
 
 	configurations {
-	 compile
+	 providedCompile
 	}
 
 	jar {
@@ -247,6 +251,11 @@ project('spring-nanotrader-services') {
 	apply plugin: 'war'
 
 	description = 'Spring Nanotrader Services'
+	
+    configurations{
+    	providedCompile
+	}
+		
 	dependencies {
 		compile project(":spring-nanotrader-service-support")
 		compile project(":spring-nanotrader-chaos")
@@ -262,6 +271,7 @@ project('spring-nanotrader-services') {
 		testCompile "org.springframework:spring-test-mvc:1.0.0.BUILD-SNAPSHOT"
 		testCompile "org.hamcrest:hamcrest-all:1.1"
 		compile "org.aspectj:aspectjweaver:$aspectjVersion"
+		runtime files("../lib/cors-filter-1.5.jar")
 	}
         task release(dependsOn: assemble) << {
             copy {
@@ -270,6 +280,11 @@ project('spring-nanotrader-services') {
                 into file("$rootDir/dist") 
             }
         }
+        
+	
+	sourceSets {
+    main { compileClasspath += configurations.providedCompile }
+	}        
 }
 
 project('spring-nanotrader-web') {

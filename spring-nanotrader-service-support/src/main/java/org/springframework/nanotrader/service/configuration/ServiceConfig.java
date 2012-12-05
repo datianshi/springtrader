@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @ImportResource({"classpath:/META-INF/spring/cache/spring-nanotrader-service-support.xml"})
-@Profile("production")
+@Profile({"production", "cloud"})
 @ComponentScan ({ "org.springframework.nanotrader.service"})
 public class ServiceConfig   {
 	

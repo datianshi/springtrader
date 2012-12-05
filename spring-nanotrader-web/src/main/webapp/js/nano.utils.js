@@ -224,7 +224,7 @@ nano.utils.getHttpHeaders = function(){
     // Add the authentication token to if if logged in
     if ( nano.utils.loggedIn() )
     {
-        headers.API_TOKEN = nano.session.authToken;
+        headers.APITOKEN = nano.session.authToken;
     }
     return headers;
 };

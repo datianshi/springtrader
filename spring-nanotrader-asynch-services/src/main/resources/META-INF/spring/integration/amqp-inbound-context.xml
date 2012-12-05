@@ -111,7 +111,7 @@
 		<int:transformer expression="'Retries exceeded: permanently failed:' + payload.failedMessage + ' handled by recovery. Error Message: ' + payload.cause.message" />
 		<int:logging-channel-adapter
 			logger-name="org.springframework.nanotrader.asynch.generalLogger"
-			level="INFO" />
+			level="DEBUG" />
 	</int:chain>
 	
 <!--#################################################################### 

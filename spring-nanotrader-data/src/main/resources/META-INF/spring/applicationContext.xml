@@ -7,13 +7,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:cloud="http://schema.cloudfoundry.org/spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://schema.cloudfoundry.org/spring http://schema.cloudfoundry.org/spring/cloudfoundry-spring.xsd">
 	<!-- This will automatically locate any and all property files you have 
 		within your classpath, provided they fall under the META-INF/spring directory. 
 		The located property files are parsed and their values can then be used within 
@@ -82,10 +84,10 @@
 			<map>
 				<entry key="hibernate.jdbc.use_scrollable_resultset" value="#{dbPropertiesBean['use_scrollable_resultset']}" />
 				<entry key="hibernate.hbm2ddl.auto" value="#{dbPropertiesBean['hb2ddl.auto']}"/>
+				<entry key="hibernate.show.sql" value="true"/>
 			</map>
 		</property>
 	</bean>
-
 
 	<beans profile="default,test">
 		<util:properties id="dbPropertiesBean">
@@ -150,7 +152,27 @@
 		</bean>
 	</beans>
 
-
+	<beans profile="cloud">
+		<util:properties id="dbPropertiesBean">
+			<prop key="use_scrollable_resultset">true</prop>
+			<prop key="dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+		</util:properties>
+		
+		<cloud:data-source id="dataSource" />
+		
+		<bean id="envPro" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		  <property name="ignoreResourceNotFound" value="true" />
+		  <property name="searchSystemEnvironment" value="true" />
+		  <property name="ignoreUnresolvablePlaceholders" value="true"/>
+		</bean>	
+				
+		<jdbc:initialize-database data-source="dataSource" enabled="${INITIALIZE_DATABASE}">
+			<!-- <jdbc:script location="classpath:/database/nanotrader-database.sql"/> -->
+			<jdbc:script location="classpath:/database/nanotrader-tables.ddl"/>
+			<jdbc:script location="classpath:/database/initdb.sql"/>
+		</jdbc:initialize-database>				
+	</beans>
+	
 	<beans profile="jndi">
 		<util:properties id="dbPropertiesBean">
 			<prop key="use_scrollable_resultset">false</prop>
